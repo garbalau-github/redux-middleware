@@ -9,15 +9,13 @@ export const fetchPosts = () => {
   };
 };
 
-export const fetchPostsAsync = () => {
-  return async (dispatch, getState) => {
-    const response = await axios.get(
-      'https://jsonplaceholder.typicode.com/posts'
-    );
-    console.log(response.data);
-    dispatch({
-      type: 'FETCH_POSTS',
-      payload: response.data,
-    });
-  };
+export const fetchPostsAsync = () => async (dispatch, _) => {
+  const response = await axios.get(
+    'https://jsonplaceholder.typicode.com/posts'
+  );
+
+  dispatch({
+    type: 'FETCH_POSTS',
+    payload: response.data,
+  });
 };
