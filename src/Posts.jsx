@@ -2,24 +2,39 @@ import React from 'react';
 import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts, fetchPostsAsync } from './state/actions';
+import { fetchPostsAsync } from './state/actions';
 
 const Posts = () => {
-  const posts = useSelector((state) => state);
+  const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchPostsAsync());
   }, []);
 
-  return (
-    <div>
-      <h4>Posts</h4>
+  const renderPosts = () => {
+    if (state.loading === true) {
+      return (
+        <>
+          <div>
+            <h1>Loading...</h1>
+          </div>
+        </>
+      );
+    }
+    return (
       <div>
-        {posts.map((post) => {
+        {state.items.map((post) => {
           return <p key={post.id}>{post.title}</p>;
         })}
       </div>
+    );
+  };
+
+  return (
+    <div>
+      <h4>Posts</h4>
+      {renderPosts()}
     </div>
   );
 };
