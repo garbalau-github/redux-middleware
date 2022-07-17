@@ -6,18 +6,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { countReducer } from './state/countReducer';
 
-// Middleware
-const myLogger = (store) => {
-  return (next) => {
-    return (action) => {
-      // We have access to action object, before it goes to Reducer
-      console.log(action);
-      console.log(store.getState());
-
-      // Pass object (modified) to next Middleware or to Reducer directly
-      return next(action);
-    };
-  };
+const myLogger = (store) => (next) => (action) => {
+  console.log(store.getState());
+  console.log(action);
+  console.log('-- Middleware');
+  return next(action);
 };
 
 const store = createStore(countReducer, applyMiddleware(myLogger));

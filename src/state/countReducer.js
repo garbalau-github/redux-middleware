@@ -1,5 +1,5 @@
 export const countReducer = (state = 0, action) => {
-  console.log('Yay, countReducer ran!');
+  console.log('-- Reducer');
   switch (action.type) {
     case 'DECREMENT':
       return state - 1;
