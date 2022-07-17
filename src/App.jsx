@@ -1,17 +1,11 @@
 import './App.css';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { decrement, increment } from './state/actions';
+import Posts from './Posts';
 
 function App() {
-  const count = useSelector((state) => state);
-  const dispatch = useDispatch();
-
   return (
     <div className='App'>
-      <h1>{count}</h1>
-      <button onClick={() => dispatch(decrement(0))}>Decrement</button>
-      <button onClick={() => dispatch(increment(2))}>Increment</button>
+      <h3>Redux Middleware</h3>
+      <Posts />
     </div>
   );
 }
