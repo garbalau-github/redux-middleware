@@ -6,40 +6,34 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { countReducer } from './state/countReducer';
 
-// 1
-const firstMiddleware = (store) => (next) => (action) => {
-  console.log('firstMiddleware()');
+// 3RD-Party Middleware
+import logger from 'redux-logger';
+
+// Middleware
+const firstMiddleware = () => (next) => (action) => {
   return next(action);
 };
 
-// 2
-const secondMiddleware = (store) => (next) => (action) => {
-  console.log('secondMiddleware()');
+const secondMiddleware = () => (next) => (action) => {
   return next(action);
 };
 
-// 3
 const changeIncrementingBehaviour = (store) => (next) => (action) => {
-  console.log('changeIncrementingBehaviour');
-  console.log('---------------------------');
-
-  // Change behaviour
   if (store.getState() >= 10) {
-    // I can modify Action properties, or send updated Object
     return next({ type: 'DECREMENT' });
   }
   return next(action);
 };
-
+// Store
 const store = createStore(
   countReducer,
   applyMiddleware(
     firstMiddleware,
     secondMiddleware,
-    changeIncrementingBehaviour
+    changeIncrementingBehaviour,
+    logger
   )
 );
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
